@@ -26,8 +26,8 @@ instance Functor (Either a) where
   fmap f (Left x) = Lef x
 ```
 
-Its up to use to make our own typeclasses functors and define them in reasonable ways.
-We just to have to massage our typeclass to something where we just change of the types inside it.
+Its up to us to make our own typeclasses functors and define them in reasonable ways.
+We just to have to massage our typeclass to something where we just change a type inside it.
 
 ### Kinds and some type-foo
 
@@ -56,3 +56,23 @@ ghci> :k isUpper 'A'
 *
 
 ```
+
+## Input and Output
+
+### Hello, world!
+
+To do side effects, we define a typeclass `IO a` which is read as an _IO action_.
+These actions are only performed if they happen to be inside a function called main.
+An IO action can return us values (the type `a` above), which we extract from them using `<-`.
+Using a normal let binding would have just renamed the function.
+The `do` keyword lets us group multiple IO actions, of which the result of last expression is returned:
+
+```
+main = do
+  a <- getLine
+  b <- getChar
+```
+
+The `return` keyword can be used to create an IO action from a pure value, kind of like the opposite of `<-`, which as we remember returns a pure value from an IO action.
+Some useful functions when working with IO actions are `when`, `sequence`, `forever`, `unless`, `mapM`, `forM`.
+
