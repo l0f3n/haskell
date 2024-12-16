@@ -7,13 +7,13 @@
 A functor is a typeclass which describe other typeclasses (not concrete types!) whose values can transformed into other values.
 
 The definition looks like this:
-```
+```haskell
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
 ```
 
 And some example implementations:
-```
+```haskell
 instance Functor [] where
   fmap = map
 
@@ -36,7 +36,7 @@ They are called kinds and can be inspected using `:k` (a `*` simply means its a 
 In the example below, we can see that an `Int` simply is a concrete type, while `Maybe` is typeclass which takes one concrete type and produces another concrete type.
 Typeclasses can be curried, just like regular functions.
 
-```
+```haskell
 ghci> :k Int
 Int :: *
 
@@ -67,7 +67,7 @@ An IO action can return us values (the type `a` above), which we extract from th
 Using a normal let binding would have just renamed the function.
 The `do` keyword lets us group multiple IO actions, of which the result of last expression is returned:
 
-```
+```haskell
 main = do
   a <- getLine
   b <- getChar
