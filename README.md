@@ -57,22 +57,30 @@ ghci> :k isUpper 'A'
 
 ```
 
-## Input and Output
+## 9 Input and Output
 
 ### Hello, world!
 
 To do side effects, we define a typeclass `IO a` which is read as an _IO action_.
 These actions are only performed if they happen to be inside a function called main.
-An IO action can return us values (the type `a` above), which we extract from them using `<-`.
+An IO action can return us values (of type `a` above), which we extract from them using `<-`.
 Using a normal let binding would have just renamed the function.
-The `do` keyword lets us group multiple IO actions, of which the result of last expression is returned:
-
+The `do` keyword lets us group multiple IO actions, of which the result of last expression is returned.
+The `return` keyword can be used to create an IO action from a pure value, kind of like the opposite of `<-`, which as we remember returns a pure value from an IO action.
 ```haskell
 main = do
   a <- getLine
-  b <- getChar
+  return "Hello, world"
+  getChar
 ```
 
-The `return` keyword can be used to create an IO action from a pure value, kind of like the opposite of `<-`, which as we remember returns a pure value from an IO action.
-Some useful functions when working with IO actions are `when`, `sequence`, `forever`, `unless`, `mapM`, `forM`.
+Some useful functions when working with IO actions are `when`, `unless`, `sequence`, `forever`, `mapM`, `forM`.
+
+
+### Files and streams
+
+`getLine`, `putStr`, `getChar`, are used to read stuff from terminal, `h` versions also exists to handle files.
+`getContents` is layz IO, which reads the input a line at a time until it encounters EOF.
+`interact` IO action that reads lines from the terminal, runs a function on them, and print the result back.
+`readFile`, `writeFile`, `appendFile` also exist to make working with files easier.
 
